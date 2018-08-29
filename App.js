@@ -1,17 +1,12 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
 import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
   Text,Button,TouchableNativeFeedback,
-  View,Alert
+  View,Alert,StatusBar
 } from 'react-native';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -36,7 +31,7 @@ export default class App extends Component<Props> {
       text ='';
     }
     if (va=='c') {
-      text ='Kalkulator';
+      text ='';
     }
     if(isNaN(va)){
       if (va=='+' || va=='-' || va=='x' || va=='/') {
@@ -78,7 +73,7 @@ export default class App extends Component<Props> {
         text ='---E-R-R-O-R---';
       }
     }else{
-      text= 'Kalkulator';
+      text= '';
     }
     
     this.setState({ calculatetext:text});
@@ -88,15 +83,26 @@ export default class App extends Component<Props> {
      return (
       <TouchableNativeFeedback onPress={()=>this._onpressProcess(val)} onLongPress ={(e)=>{Alert.alert('Kalkulator','created by \nkarebetconnec@gmail.com \nuse react-native',[{text: 'OK', onPress: () => console.log('OK Pressed')}],{ cancelable: false })}}>
       <View style={styles.vbutton_v}>
-      <Text style={{fontSize:30}}>{val}</Text>
+      <Text style={{color:'#ffffff',fontSize:30}}>{val}</Text>
       </View>
       </TouchableNativeFeedback>
       )
     }
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>{this.state.calculatetext}</Text>
+      
+      <LinearGradient 
+      start={{x: 0, y: 0.10}} 
+      end={{x: 1, y: 0.75}}  
+      colors={[ '#35c6f9','#1495dd','#0071bc']} 
+      style={styles.container}>
+      <StatusBar backgroundColor="#35c6f9" barStyle="light-content" />
+        
         <View style={styles.abottom}>
+        <View style={styles.atextcenter}>
+          <View style={styles.atextcentertext}>
+            <Text style={styles.welcome}>{this.state.calculatetext}</Text>
+          </View>
+        </View>
           <View style={styles.vbuttonc}>
             {tombolCalculator(1)}
             {tombolCalculator(2)}
@@ -122,7 +128,7 @@ export default class App extends Component<Props> {
             {tombolCalculator('+')}
           </View>
         </View>
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -131,12 +137,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',paddingTop: 240,
+    backgroundColor: '#F5FCFF',paddingTop: 210
   },
   welcome: {
     fontSize: 20,
+    color:'#ffffff',
     textAlign: 'center',
-    margin: 10,
+    margin: 10,height:80
   },
   welcome_hasil:{
     fontSize: 30,
@@ -145,7 +152,6 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
     marginBottom: 5,
   },
   vbuttonc:{
@@ -157,9 +163,21 @@ const styles = StyleSheet.create({
   vbutton_v:{
     flex: 3, flexDirection:'column', justifyContent:'center', alignItems:'center',height:80
   },
+  atextcenter:{
+    flexDirection:'row',
+    paddingTop: 50,
+    borderRadius:10,
+    backgroundColor:'rgba(0, 113, 188,0.6)',
+    alignSelf: 'stretch',
+    marginRight: 10,marginLeft: 10,height:80
+  },
+  atextcentertext:{
+    flex: 1,flexDirection:'column', justifyContent:'center'
+  },
   abottom:{
+    bottom: 0,
     alignItems:'center',
     justifyContent: 'center',
-    flex:1,paddingTop: 20,
+    paddingTop: 20,
   }
 });
